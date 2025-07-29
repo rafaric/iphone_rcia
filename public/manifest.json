@@ -1,0 +1,16 @@
+{
+  "name": "iPhone Resistencia",
+  "short_name": "iPhoneRcia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f5f5",
+  "theme_color": "#1f2937",
+  "description": "Compra iPhones nuevos y usados con garantía.",
+  "icons": [
+    {
+      "src": "/icons/iphonercia-ICON.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
