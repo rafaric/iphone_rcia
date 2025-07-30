@@ -22,3 +22,18 @@ export interface CartItem {
   quantity: number;
   selectedOptions?: Record<string, string>;
 }
+export interface StripeProduct {
+  _id: string;
+  name: string;
+  price: number;
+  slug: string;
+  image: string;
+  category?: {
+    title: string;
+    emoji: string;
+  };
+  condition?: {
+    label: string;
+    emoji: string;
+  };
+}

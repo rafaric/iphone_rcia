@@ -4,3 +4,10 @@ export const HeroImages = [
   "/Hero/hero3.webp",
   "/Hero/hero4.webp",
 ];
+
+export const MenuItems = [
+  { title: "Home", href: "/" },
+  { title: "Productos", href: "/product-list" },
+  { title: "Acerca de", href: "/about" },
+  { title: "Contacto", href: "/contact" },
+];

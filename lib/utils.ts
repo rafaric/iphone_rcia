@@ -6,14 +6,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export async function getFeaturedProducts() {
+export async function fetchGroupedProducts() {
   return await client.fetch(`
-    *[_type == "product" && featured == true]{
+    *[_type == "product"]{
+      _id,
       name,
       price,
-      image,
-      description,
-      slug
+      slug,
+      "image": image.asset->url,
+      category->{title, emoji},
+      condition->{label, emoji}
     }
   `);
 }
