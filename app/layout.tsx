@@ -27,11 +27,11 @@ export default function RootLayout({
         title="iPhone Rcia - Calidad en iPhones"
         description="Compra y venta de iPhones nuevos y usados en Resistencia, Chaco."
       />
-      <body>
+      <body className="min-h-screen flex flex-col dark:bg-dark-gray">
         <InitSw />
         <Promo />
         <Navbar />
-        {children}
+        <div className="flex-grow">{children}</div>
         <Footer />
       </body>
     </html>

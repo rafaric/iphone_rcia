@@ -17,17 +17,15 @@ export interface Product {
 export type Category = "electronica" | "ropa" | "hogar";
 export type Tag = "oferta" | "nuevo" | "mas-vendido";
 
-export interface CartItem {
-  product: Product;
-  quantity: number;
-  selectedOptions?: Record<string, string>;
-}
 export interface StripeProduct {
   _id: string;
   name: string;
   price: number;
-  slug: string;
+  slug: { _type: "slug"; current: string };
   image: string;
+  model: string;
+  color: string;
+  storage: string;
   category?: {
     title: string;
     emoji: string;
@@ -36,4 +34,40 @@ export interface StripeProduct {
     label: string;
     emoji: string;
   };
+}
+
+export interface ProductDetailProps {
+  image: string;
+  name: string;
+  price: number;
+  batteryHealth?: string;
+  condition?: "nuevo" | "usado" | "reacondicionado";
+  model: string;
+  color: string;
+  storage: string;
+  inStock: boolean;
+}
+export interface CartItem {
+  slug: string;
+  name: string;
+  price: number;
+  image: string;
+  model: string;
+  storage: string;
+  color: string;
+  quantity?: number;
+}
+
+export interface CartItemProps {
+  item: {
+    slug: string;
+    name: string;
+    price: number;
+    image: string;
+    model: string;
+    storage: string;
+    color: string;
+    quantity?: number;
+  };
+  onRemove: () => void;
 }

@@ -12,10 +12,20 @@ export async function fetchGroupedProducts() {
       _id,
       name,
       price,
+      model,
+      color,
+      storage,
       slug,
       "image": image.asset->url,
       category->{title, emoji},
       condition->{label, emoji}
     }
   `);
+}
+
+export async function generateStaticParams() {
+  const slugs = await client.fetch(
+    `*[_type == "product" && defined(slug.current)][]{ "slug": slug.current }`
+  );
+  return slugs.map(({ slug }: { slug: string }) => ({ slug }));
 }

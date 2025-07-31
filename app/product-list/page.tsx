@@ -1,9 +1,10 @@
 "use client";
 import { fetchGroupedProducts } from "@/lib/utils";
 import { StripeProduct } from "@/utils/interface";
-import Image from "next/image";
 
 import { useEffect, useState } from "react";
+import ProductCard from "../components/Card";
+import { Toaster } from "sonner";
 
 export default function Page() {
   const [products, setProducts] = useState<StripeProduct[]>([]);
@@ -24,7 +25,8 @@ export default function Page() {
   );
 
   return (
-    <main className="space-y-6 p-6">
+    <main className="space-y-6 px-40 mb-40">
+      <Toaster />
       <h1 className="text-2xl font-bold">Catálogo de iPhones</h1>
 
       {Object.entries(grouped).map(([conditionLabel, items]) => (
@@ -33,15 +35,24 @@ export default function Page() {
             {items[0]?.condition?.emoji} {conditionLabel}
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-4">
             {items.map((product) => (
-              <div key={product._id} className="border p-4 rounded shadow-sm">
+              <ProductCard key={product._id} item={product} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </main>
+  );
+}
+{
+  /* <div key={product._id} className="border p-4 rounded shadow-sm">
                 <Image
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-40 object-cover rounded"
-                  width={50}
-                  height={50}
+                  className="rounded"
+                  width={120}
+                  height={120}
                 />
                 <h3 className="font-bold mt-2">{product.name}</h3>
                 <p className="text-sm text-gray-600">
@@ -50,11 +61,5 @@ export default function Page() {
                 <p className="text-lg font-semibold text-blue-600">
                   ${product.price}
                 </p>
-              </div>
-            ))}
-          </div>
-        </section>
-      ))}
-    </main>
-  );
+              </div> */
 }
