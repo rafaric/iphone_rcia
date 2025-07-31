@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartStore } from "@/context/store";
+import { useCartStore } from "@/context/CartStore";
 import Link from "next/link";
 import CartItem from "../components/CartItem";
 import { toast, Toaster } from "sonner";

@@ -1,5 +1,5 @@
 "use client";
-import { useCartStore } from "@/context/store";
+import { useCartStore } from "@/context/CartStore";
 import { ProductDetailProps } from "@/utils/interface";
 import Image from "next/image";
 export default function ProductDetail({

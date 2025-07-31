@@ -3,14 +3,18 @@ import { MenuItems } from "@/constants/constants";
 import Image from "next/image";
 import MenuItem from "./MenuItem";
 import Link from "next/link";
-import { useCartStore } from "@/context/store";
+import { useCartStore } from "@/context/CartStore";
+import { useState } from "react";
+import SearchModal from "./SearchModal";
 
 const Navbar = () => {
+  const [showSearch, setShowSearch] = useState<boolean>(false);
   const { items } = useCartStore();
   const totalItems = items.reduce(
     (acc, item) => acc + (item?.quantity ?? 0),
     0
   );
+
   return (
     <div className="flex items-center justify-around h-[153px] dark:bg-dark-gray">
       <h1 className="text-4xl text-main flex-1 text-center">
@@ -42,7 +46,10 @@ const Navbar = () => {
             )}
           </button>
         </Link>
-        <button className="w-10 h-10 rounded bg-white border border-baccent flex items-center justify-center hover:scale-105 hover:transition-transform duration-200 hover:bg-accent">
+        <button
+          className="w-10 h-10 rounded bg-white border border-baccent flex items-center justify-center hover:scale-105 hover:transition-transform duration-200 hover:bg-accent"
+          onClick={() => setShowSearch(true)}
+        >
           <Image
             src="/icons/search.png"
             alt="busqueda"
@@ -50,6 +57,7 @@ const Navbar = () => {
             height={12}
           />
         </button>
+        <SearchModal isOpen={showSearch} onClose={() => setShowSearch(false)} />
       </div>
     </div>
   );

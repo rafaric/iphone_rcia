@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useCartStore } from "@/context/store";
+import { useCartStore } from "@/context/CartStore";
 import { CartItemProps } from "@/utils/interface";
 import Image from "next/image";
 import { toast, Toaster } from "sonner";

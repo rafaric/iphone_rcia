@@ -16,6 +16,7 @@ export async function fetchGroupedProducts() {
       color,
       storage,
       slug,
+      batteryHealth,
       "image": image.asset->url,
       category->{title, emoji},
       condition->{label, emoji}

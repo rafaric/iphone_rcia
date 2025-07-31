@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { useCartStore } from "@/context/store";
+import { useCartStore } from "@/context/CartStore";
 import { StripeProduct } from "@/utils/interface";
 import { Heart } from "lucide-react";
 import Image from "next/image";

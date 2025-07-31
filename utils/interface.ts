@@ -26,6 +26,7 @@ export interface StripeProduct {
   model: string;
   color: string;
   storage: string;
+  batteryHealth: number;
   category?: {
     title: string;
     emoji: string;
@@ -70,4 +71,11 @@ export interface CartItemProps {
     quantity?: number;
   };
   onRemove: () => void;
+}
+
+export interface SearchState {
+  query: string;
+  setQuery: (q: string) => void;
+  triggerRedirect: boolean;
+  setTriggerRedirect: (val: boolean) => void;
 }
