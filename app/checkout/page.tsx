@@ -11,7 +11,13 @@ const Checkout = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    delivery: "retiro",
+    delivery: "pickup" as "pickup" | "delivery",
+  });
+  const [shippingDetails, setShippingDetails] = useState({
+    fullName: "",
+    address: "",
+    city: "",
+    postalCode: "",
   });
 
   function handleChange(
@@ -22,17 +28,37 @@ const Checkout = () => {
       [e.target.name]: e.target.value,
     });
   }
+  function handleShippingChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setShippingDetails({
+      ...shippingDetails,
+      [e.target.name]: e.target.value,
+    });
+  }
 
   // Handle checkout process and redirect to payment URL
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.name || !form.email) {
+      toast.error("Faltan datos del comprador");
+      return;
+    }
+    if (form.delivery === "delivery") {
+      const { fullName, address, city, postalCode } = shippingDetails;
+      if (!fullName || !address || !city || !postalCode) {
+        toast.error("Faltan datos de envío");
+        return;
+      }
+    }
+
     const orderData = {
       buyerName: form.name,
       buyerEmail: form.email,
       deliveryMethod: form.delivery,
       items,
       total,
+      ...(form.delivery === "delivery" && { shippingDetails }),
     };
+
     try {
       await createOrder(orderData);
       const res = await fetch("/api/checkout", {
@@ -77,9 +103,50 @@ const Checkout = () => {
           onChange={handleChange}
           className="w-full border p-2 rounded dark:bg-zinc-800"
         >
-          <option value="retiro">Retiro en tienda</option>
-          <option value="envio">Envío a domicilio</option>
+          <option value="pickup">Retiro en tienda</option>
+          <option value="delivery">Envío a domicilio</option>
         </select>
+
+        {form.delivery === "delivery" && (
+          <div className="space-y-2 pt-4">
+            <input
+              name="fullName"
+              type="text"
+              placeholder="Nombre completo"
+              value={shippingDetails.fullName}
+              onChange={handleShippingChange}
+              required
+              className="w-full border p-2 rounded dark:bg-zinc-800"
+            />
+            <input
+              name="address"
+              type="text"
+              placeholder="Dirección"
+              value={shippingDetails.address}
+              onChange={handleShippingChange}
+              required
+              className="w-full border p-2 rounded dark:bg-zinc-800"
+            />
+            <input
+              name="city"
+              type="text"
+              placeholder="Ciudad"
+              value={shippingDetails.city}
+              onChange={handleShippingChange}
+              required
+              className="w-full border p-2 rounded dark:bg-zinc-800"
+            />
+            <input
+              name="postalCode"
+              type="text"
+              placeholder="Código postal"
+              value={shippingDetails.postalCode}
+              onChange={handleShippingChange}
+              required
+              className="w-full border p-2 rounded dark:bg-zinc-800"
+            />
+          </div>
+        )}
 
         <hr className="my-6" />
 
