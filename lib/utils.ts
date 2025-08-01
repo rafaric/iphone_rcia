@@ -30,3 +30,16 @@ export async function generateStaticParams() {
   );
   return slugs.map(({ slug }: { slug: string }) => ({ slug }));
 }
+
+export const topViewedProducts = async () => {
+  return await client.fetch(`
+  *[_type == "product"] | order(views desc)[0...5] {
+    _id,
+    name,
+    slug,
+    "image": image.asset->url,
+    views,
+    price
+  }
+`);
+};

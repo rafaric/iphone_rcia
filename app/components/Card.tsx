@@ -39,10 +39,10 @@ const ProductCard = ({ item }: ProductCardProps) => {
       <Badge className="absolute rounded-full size-8 top-4 right-4 bg-white hover:scale-105 hover:transition-all hover:duration-200">
         <Heart color="black" />
       </Badge>
-      <div className="rounded bg-main w-full flex justify-center items-center p-2 h-40">
+      <div className="rounded bg-main w-full flex justify-center items-center h-40">
         <Image
           className="overflow-hidden group-hover:scale-105 group-hover:transition-all group-hover:duration-300 duration-200 bg-cover"
-          src={item?.image}
+          src={item?.image ? item.image : "/productos/no_image.png"}
           alt={item?.name}
           width={100}
           height={20}
@@ -52,10 +52,17 @@ const ProductCard = ({ item }: ProductCardProps) => {
       <div className="flex justify-between items-center">
         <h4 className="text-sm font-bold text-[#3e3e3e]">U$S {item?.price}</h4>
         <button
-          className="bg-main rounded w-8 h-8 flex justify-center items-center hover:bg-main/60"
+          className="bg-main rounded flex justify-center items-center hover:bg-main/60 w-8 h-8"
           onClick={handleAddToCart}
         >
-          <Image src="/icons/cartCard.png" alt="cart" width={15} height={15} />
+          <div>
+            <Image
+              src="/icons/cartCard.png"
+              alt="cart"
+              width={18}
+              height={18}
+            />
+          </div>
         </button>
       </div>
     </Card>

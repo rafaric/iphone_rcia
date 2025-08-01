@@ -26,6 +26,7 @@ export interface StripeProduct {
   model: string;
   color: string;
   storage: string;
+  views: number;
   batteryHealth: number;
   category?: {
     title: string;

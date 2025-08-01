@@ -2,14 +2,15 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./Card";
 import { StripeProduct } from "@/utils/interface";
-import { fetchGroupedProducts } from "@/lib/utils";
+import { topViewedProducts } from "@/lib/utils";
 
 const MostLiked = () => {
   const [products, setProducts] = useState<StripeProduct[]>([]);
 
   useEffect(() => {
-    fetchGroupedProducts().then(setProducts);
+    topViewedProducts().then(setProducts);
   }, []);
+
   return (
     <div className="w-full my-10">
       <h3 className="font-bold text-4xl text-dark-gray text-center">

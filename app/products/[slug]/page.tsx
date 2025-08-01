@@ -14,9 +14,10 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0]{ name, description }`,
-    { slug: params?.slug }
+    { slug: slug }
   );
 
   return {
@@ -26,8 +27,11 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function ProductPage({ params }: Props) {
+  const { slug } = await params;
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0]{
+      _id,
+      views,
       name,
       price,
       model,
@@ -41,10 +45,16 @@ export default async function ProductPage({ params }: Props) {
       "category": category->title,
       featured
     }`,
-    { slug: params?.slug }
+    { slug: slug }
   );
 
   if (!product) return notFound();
-
+  await fetch(`${process.env.NEXT_PUBLIC_URL}/api/view`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id: product._id }),
+  });
   return <ProductDetail {...product} />;
 }

@@ -122,10 +122,13 @@
 }
 
 @layer base {
-  * {
+  *:not(img) {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-[#f9f9f9] text-foreground font-Montserrat;
+  }
+  img {
+    @apply max-w-none;
   }
 }

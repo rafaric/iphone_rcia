@@ -5,6 +5,12 @@ const product = {
   type: "document",
   title: "Producto",
   fields: [
+    defineField({
+      name: "views",
+      type: "number",
+      title: "Vistas",
+      initialValue: 0,
+    }),
     defineField({ name: "name", type: "string", title: "Nombre" }),
     defineField({
       name: "slug",

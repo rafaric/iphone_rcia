@@ -1,23 +1,34 @@
 /* route handler Stripe */
 import { NextResponse } from "next/server";
 import stripe from "@/lib/stripe";
-import { Product } from "@/utils/interface";
+import { CartItem } from "@/utils/interface";
 
 export async function POST(req: Request) {
-  const { items } = await req.json();
+  const { items }: { items: CartItem[] } = await req.json();
+  console.log(typeof items[0]?.price);
+  if (!items.every((item: CartItem) => typeof item.price === "number")) {
+    return NextResponse.json(
+      { error: "Invalid price format" },
+      { status: 400 }
+    );
+  }
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
-    line_items: items.map((item: { product: Product; quantity: number }) => ({
+    line_items: items.map((item) => ({
       price_data: {
         currency: "usd",
-        product_data: { name: item.product.title },
-        unit_amount: item.product.price * 100,
+        product_data: {
+          name: item.name,
+          images: [item.image],
+        },
+        unit_amount: item.price * 100,
       },
       quantity: item.quantity,
     })),
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_URL}/checkout?success=true`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/cart?canceled=true`,
+    success_url: `http://localhost:3000/confirmation`,
+    cancel_url: `http://localhost:3000/product-list`,
   });
+
   return NextResponse.json({ url: session.url });
 }

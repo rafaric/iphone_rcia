@@ -26,7 +26,7 @@ const Hero = () => {
           <CarouselItem key={index} className="basis-1/1 overflow-hidden">
             <Image
               className="object-contain w-8/12 justify-center mx-auto"
-              src={img}
+              src={img ? img : "/productos/no_image.png"}
               alt={`${img}${Math.random()}`}
               width={600}
               height={600}

@@ -1,7 +1,7 @@
 "use client";
 import { fetchGroupedProducts } from "@/lib/utils";
 import { StripeProduct } from "@/utils/interface";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import ProductCard from "../components/Card";
 import { Toaster } from "sonner";
