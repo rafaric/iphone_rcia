@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Promo = () => {
   return (
-    <div className="w-full justify-around bg-main h-14 flex items-center text-white mx-auto">
+    <div className="hidden w-full justify-around bg-main h-14 sm:flex items-center text-white mx-auto">
       <div className="flex flex-1 h-fit justify-center gap-2 text-sm">
         <p>Siganos:</p>
         <Image

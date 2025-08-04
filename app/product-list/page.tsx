@@ -57,27 +57,38 @@ export default function Page() {
   );
 
   return (
-    <main className="space-y-6 px-40 mb-40">
+    <main className="space-y-6 px-5 sm:px-40 mb-40">
       <Toaster />
       <h1 className="text-2xl font-bold">Catálogo de iPhones</h1>
-      <section className="grid grid-cols-6 gap-10">
-        <aside className="col-span-1">
+      <section className="grid sm:grid-cols-6 gap-10">
+        <aside className="col-span-6">
           <ProductFilter onFilterChange={setFilters} />
         </aside>
-        <aside className="col-span-5">
-          <div className="flex gap-2 items-center">
-            <input type="radio" id="full" name="view" onClick={handleToggle} />
-            <label htmlFor="full">Sin Categorizar</label>
-            <input
-              type="radio"
-              id="compact"
-              name="view"
-              onClick={handleToggle}
-              defaultChecked
-            />
-            <label htmlFor="compact">Por Condición</label>
-            <ActiveSearchTag />
-            <span className="ml-auto text-sm text-gray-500">
+        <aside className="col-span-6">
+          <div className="flex flex-col sm:flex-row w-full gap-2 items-center">
+            <div className="flex gap-2 items-center">
+              <input
+                type="radio"
+                id="full"
+                name="view"
+                onClick={handleToggle}
+              />
+              <label className="text-sm sm:text-base" htmlFor="full">
+                Sin Categorizar
+              </label>
+              <input
+                type="radio"
+                id="compact"
+                name="view"
+                onClick={handleToggle}
+                defaultChecked
+              />
+              <label className="text-sm sm:text-base" htmlFor="compact">
+                Por Condición
+              </label>
+              <ActiveSearchTag />
+            </div>
+            <span className="sm:ml-auto py-3 sm:py-0 text-sm text-gray-500">
               {filtered.length > 0
                 ? `Se han encontrado ${filtered.length} productos`
                 : "No se han encontrado productos con los filtros aplicados."}
@@ -85,7 +96,7 @@ export default function Page() {
           </div>
           {!fullView ? (
             Object.entries(grouped).map(([conditionLabel, items]) => (
-              <section key={conditionLabel}>
+              <section key={conditionLabel} className="w-full mx-auto">
                 <h2 className="text-xl font-semibold my-3">
                   {items[0]?.condition?.emoji} {conditionLabel}
                 </h2>

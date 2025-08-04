@@ -40,7 +40,7 @@ export default function SearchModal({ isOpen, onClose }: Props) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0  z-50 flex justify-end mt-40 mr-10 "
+          className="fixed inset-0 z-50 flex justify-center mt-40"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

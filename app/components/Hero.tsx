@@ -12,7 +12,7 @@ const Hero = () => {
   return (
     <Carousel
       opts={{ align: "start", loop: true, duration: 60 }}
-      className="w-full h-[600px] overflow-hidden"
+      className="w-full h-[200px] sm:h-[600px] overflow-hidden"
       plugins={[
         Autoplay({
           delay: 4000,
@@ -25,11 +25,11 @@ const Hero = () => {
         {HeroImages.map((img, index) => (
           <CarouselItem key={index} className="basis-1/1 overflow-hidden">
             <Image
-              className="object-contain w-8/12 justify-center mx-auto"
+              className="object-contain w-full sm:w-8/12 justify-center mx-auto"
               src={img ? img : "/productos/no_image.png"}
               alt={`${img}${Math.random()}`}
               width={600}
-              height={600}
+              height={800}
             />
           </CarouselItem>
         ))}

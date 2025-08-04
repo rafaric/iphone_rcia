@@ -23,10 +23,10 @@ export default function ProductFilter({ onFilterChange }: Props) {
 
   return (
     <div className="grid w-full p-4 bg-white dark:bg-zinc-900 rounded-xl shadow-md">
-      <h2 className="text-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-4">
+      <h2 className="sm:text-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-4">
         Filtros
       </h2>
-      <div className="grid grid-rows-3 gap-5">
+      <div className="flex sm:grid sm:grid-rows-3 gap-5">
         <SelectFilter
           title="Color"
           options={["Negro", "Blanco", "Rojo", "Coral"]}

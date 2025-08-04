@@ -167,12 +167,14 @@ const Checkout = () => {
           </p>
         </div>
 
-        <button
-          type="submit"
-          className="mt-6 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
-        >
-          Confirmar compra
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="mt-6 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+          >
+            Confirmar compra
+          </button>
+        </div>
       </form>
     </main>
   );
