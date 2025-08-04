@@ -23,6 +23,17 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: `${product.name} | iPhoneRcia`,
     description: product.description,
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      images: [{ url: product.image }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.name,
+      description: product.description,
+      images: [product.image],
+    },
   };
 }
 
