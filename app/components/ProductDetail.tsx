@@ -2,6 +2,7 @@
 import { useCartStore } from "@/context/CartStore";
 import { ProductDetailProps } from "@/utils/interface";
 import Image from "next/image";
+import { toast, Toaster } from "sonner";
 export default function ProductDetail({
   image,
   name,
@@ -24,10 +25,12 @@ export default function ProductDetail({
       storage,
       slug: name.toLowerCase().replace(/\s+/g, "-"),
     });
+    toast.success("Producto añadido al carrito 🛒");
     //agregar modal o aviso con posibilidad de enviar al carrito.
   };
   return (
     <div className="grid md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-40 py-6">
+      <Toaster />
       {/* 📷 Imagen del producto */}
       <div className="w-full">
         <Image
@@ -52,9 +55,13 @@ export default function ProductDetail({
             </p>
           )}
           {condition && (
-            <p className="text-sm md:text-sm 2xl:text-base">📦 Estado: {condition}</p>
+            <p className="text-sm md:text-sm 2xl:text-base">
+              📦 Estado: {condition}
+            </p>
           )}
-          <p className="text-xl md:text-lg 2xl:text-4xl font-semibold mt-2">${price}</p>
+          <p className="text-xl md:text-lg 2xl:text-4xl font-semibold mt-2">
+            ${price}
+          </p>
           {!inStock && <p className="text-red-500 text-sm">Sin stock</p>}
         </div>
 
