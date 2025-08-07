@@ -48,6 +48,7 @@ export interface ProductDetailProps {
   color: string;
   storage: string;
   inStock: boolean;
+  description: string;
 }
 export interface CartItem {
   slug: string;

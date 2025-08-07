@@ -55,7 +55,8 @@ export default async function ProductPage({ params }: Props) {
       "image": image.asset->url,
       "condition": condition->title,
       "category": category->title,
-      featured
+      featured,
+      description
     }`,
     { slug: slug }
   );

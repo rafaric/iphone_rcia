@@ -13,6 +13,7 @@ export default function ProductDetail({
   color,
   storage,
   inStock,
+  description,
 }: ProductDetailProps) {
   const { addItem } = useCartStore();
   const handleAddToCart = () => {
@@ -26,19 +27,17 @@ export default function ProductDetail({
       slug: name.toLowerCase().replace(/\s+/g, "-"),
     });
     toast.success("Producto añadido al carrito 🛒");
-    //agregar modal o aviso con posibilidad de enviar al carrito.
   };
   return (
     <div className="grid md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-40 py-6">
-      <Toaster />
       {/* 📷 Imagen del producto */}
-      <div className="w-full">
+      <div className="w-8/12">
         <Image
           src={image || ""}
           alt={name}
           className="rounded-xl shadow-md object-cover w-full h-auto"
-          width={400}
-          height={400}
+          width={200}
+          height={200}
         />
       </div>
 
@@ -63,6 +62,7 @@ export default function ProductDetail({
             ${price}
           </p>
           {!inStock && <p className="text-red-500 text-sm">Sin stock</p>}
+          <p>{description}</p>
         </div>
 
         <button
@@ -73,6 +73,7 @@ export default function ProductDetail({
           Añadir al carrito
         </button>
       </div>
+      <Toaster />
     </div>
   );
 }
