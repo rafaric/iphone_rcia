@@ -1,9 +1,10 @@
 import ProductDetail from "@/app/components/ProductDetail";
+import { incrementViews } from "@/lib/utils";
 import { client } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
@@ -21,18 +22,18 @@ export async function generateMetadata({ params }: Props) {
   );
 
   return {
-    title: `${product.name} | iPhoneRcia`,
-    description: product.description,
+    title: `${product?.name} | iPhoneRcia`,
+    description: product?.description,
     openGraph: {
-      title: product.name,
-      description: product.description,
-      images: [{ url: product.image }],
+      title: product?.name,
+      description: product?.description,
+      images: [{ url: product?.image }],
     },
     twitter: {
       card: "summary_large_image",
-      title: product.name,
+      title: product?.name,
       description: product.description,
-      images: [product.image],
+      images: [product?.image],
     },
   };
 }
@@ -60,12 +61,9 @@ export default async function ProductPage({ params }: Props) {
   );
 
   if (!product) return notFound();
-  await fetch(`${process.env.NEXT_PUBLIC_URL}/api/view`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id: product._id }),
-  });
+
+  // Ejecutar incremento de views de forma asíncrona sin esperar
+  incrementViews(product._id);
+
   return <ProductDetail {...product} />;
 }

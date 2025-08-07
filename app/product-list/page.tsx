@@ -20,6 +20,7 @@ export default function Page() {
     if (triggerRedirect) {
       setTriggerRedirect(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggerRedirect]);
 
   useEffect(() => {

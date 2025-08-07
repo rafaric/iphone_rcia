@@ -43,3 +43,17 @@ export const topViewedProducts = async () => {
   }
 `);
 };
+
+export async function incrementViews(productId: string) {
+  try {
+    await fetch(`${process.env.NEXT_PUBLIC_URL}/api/view`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: productId }),
+    });
+  } catch (error) {
+    console.error("Error incrementing views:", error);
+  }
+}

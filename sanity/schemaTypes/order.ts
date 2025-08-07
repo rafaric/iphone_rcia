@@ -1,6 +1,6 @@
-import { defineField, defineType, Rule } from "sanity";
+import { defineField, defineType } from "sanity";
 
-export const order = defineType({
+const order = defineType({
   name: "order",
   type: "document",
   title: "Orden",
@@ -116,3 +116,5 @@ export const order = defineType({
     }),
   ],
 });
+
+export default order;
