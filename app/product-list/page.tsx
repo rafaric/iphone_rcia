@@ -58,14 +58,14 @@ export default function Page() {
   );
 
   return (
-    <main className="space-y-6 px-5 sm:px-40 mb-40">
+    <main className="space-y-6 px-5 sm:px-20 2xl:px-40 mb-40">
       <Toaster />
       <h1 className="text-2xl font-bold">Catálogo de iPhones</h1>
-      <section className="grid sm:grid-cols-6 gap-10">
-        <aside className="col-span-6">
+      <section className="grid grid-cols-6 gap-10">
+        <aside className="col-span-6 md:col-span-1">
           <ProductFilter onFilterChange={setFilters} />
         </aside>
-        <aside className="col-span-6">
+        <aside className="col-span-6 md:col-span-5">
           <div className="flex flex-col sm:flex-row w-full gap-2 items-center">
             <div className="flex gap-2 items-center">
               <input

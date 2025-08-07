@@ -17,7 +17,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-around h-[153px] dark:bg-dark-gray px-10 xl:px-0">
+    <div className="flex flex-col md:flex-row items-center justify-around h-[153px] dark:bg-dark-gray px-10 xl:px-5">
       <div className="flex items-center justify-around sm:justify-between w-full sm:w-auto px-5 sm:px-0">
         <h1 className="sm:text-4xl text-2xl text-main flex-1 text-center sm:text-left">
           iPhone <br className="xl:hidden" /> Resistencia.
