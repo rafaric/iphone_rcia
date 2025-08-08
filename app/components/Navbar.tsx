@@ -10,6 +10,7 @@ import SearchModal from "./SearchModal";
 const Navbar = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
   const { items } = useCartStore();
   const totalItems = items.reduce(
     (acc, item) => acc + (item?.quantity ?? 0),
@@ -41,7 +42,7 @@ const Navbar = () => {
             </div>
           ))}
           <li className="sm:hidden flex gap-2 justify-center mt-4">
-            <Link href="/studio" onClick={() => setShowMenu(false)}>
+            <Link href="#" onClick={() => setShowMenu(false)}>
               <button className="w-10 h-10 rounded bg-white border border-baccent flex items-center justify-center hover:scale-105 hover:transition-transform duration-200 hover:bg-accent">
                 <Image
                   src="/icons/profile.png"
@@ -84,8 +85,11 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="hidden sm:flex flex-1 xl:justify-center justify-end gap-2">
-        <Link href="/studio">
-          <button className="w-10 h-10 rounded bg-white border border-baccent flex items-center justify-center hover:scale-105 hover:transition-transform duration-200 hover:bg-accent">
+        <div className="relative">
+          <button
+            className="w-10 h-10 rounded bg-white border border-baccent flex items-center justify-center hover:scale-105 hover:transition-transform duration-200 hover:bg-accent"
+            onClick={() => setShowProfileMenu(!showProfileMenu)}
+          >
             <Image
               src="/icons/profile.png"
               alt="carga productos"
@@ -93,7 +97,24 @@ const Navbar = () => {
               height={12}
             />
           </button>
-        </Link>
+          {showProfileMenu && (
+            <div className="absolute top-12 right-0 bg-white border border-baccent rounded shadow-lg py-2 min-w-[200px] z-20">
+              <Link href="/studio" onClick={() => setShowProfileMenu(false)}>
+                <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  Carga de productos
+                </div>
+              </Link>
+              <Link
+                href="/product-list?favorites=true"
+                onClick={() => setShowProfileMenu(false)}
+              >
+                <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  Ver favoritos
+                </div>
+              </Link>
+            </div>
+          )}
+        </div>
         <Link href="/cart">
           <button className="w-10 h-10 rounded bg-white border border-baccent flex items-center justify-center hover:scale-105 hover:transition-transform duration-200 hover:bg-accent relative">
             <Image src="/icons/cart.png" alt="carrito" width={12} height={12} />
@@ -117,6 +138,12 @@ const Navbar = () => {
         </button>
       </div>
       <SearchModal isOpen={showSearch} onClose={() => setShowSearch(false)} />
+      {showProfileMenu && (
+        <div
+          className="fixed inset-0 z-10"
+          onClick={() => setShowProfileMenu(false)}
+        />
+      )}
     </div>
   );
 };

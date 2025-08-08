@@ -1,11 +1,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { useCartStore } from "@/context/CartStore";
+import { isFavorite, toggleFavorite } from "@/lib/utils";
 import { StripeProduct } from "@/utils/interface";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import FavoriteBadge from "./FavoriteBadge";
 interface ProductCardProps {
   item: StripeProduct;
 }
@@ -28,6 +30,11 @@ const ProductCard = ({ item }: ProductCardProps) => {
     //router.push("/cart");
     //agregar modal o aviso con posibilidad de enviar al carrito.
   };
+  const handleToggle = (e: React.MouseEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    toggleFavorite(item._id);
+  };
+
   return (
     <Card
       className="rounded bg-white gap-4 p-2 2xl:p-3 flex flex-col h-fit hover:shadow-xl hover:transition-all hover:duration-300 duration-200 hover:cursor-pointer group relative"
@@ -36,9 +43,7 @@ const ProductCard = ({ item }: ProductCardProps) => {
       <Badge className="absolute rounded-full size-8 top-4 left-4 bg-red-700">
         <span className="text-xs font-light">HOT</span>
       </Badge>
-      <Badge className="absolute rounded-full size-8 top-4 right-4 bg-white hover:scale-105 hover:transition-all hover:duration-200">
-        <Heart color="black" />
-      </Badge>
+      <FavoriteBadge productId={item._id} />
       <div className="rounded bg-main w-full flex justify-center items-center h-40">
         <Image
           className="overflow-hidden group-hover:scale-105 group-hover:transition-all group-hover:duration-300 duration-200 bg-cover"

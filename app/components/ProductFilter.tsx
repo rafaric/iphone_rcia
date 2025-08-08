@@ -1,19 +1,30 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SelectFilter } from "./SelectFilter";
 
 type Props = {
   onFilterChange: (filters: Filters) => void;
+  showFavorites?: boolean;
 };
 
 export type Filters = {
   color?: string;
   model?: string;
   battery?: ">90" | "<90";
+  favorites?: boolean;
 };
 
-export default function ProductFilter({ onFilterChange }: Props) {
-  const [filters, setFilters] = useState<Filters>({});
+export default function ProductFilter({
+  onFilterChange,
+  showFavorites,
+}: Props) {
+  const [filters, setFilters] = useState<Filters>({
+    favorites: showFavorites
+  });
+
+  useEffect(() => {
+    setFilters(prev => ({ ...prev, favorites: showFavorites }));
+  }, [showFavorites]);
 
   function updateFilter<K extends keyof Filters>(key: K, value: Filters[K]) {
     const updated = { ...filters, [key]: value };
@@ -45,6 +56,16 @@ export default function ProductFilter({ onFilterChange }: Props) {
           value={filters.battery}
           onChange={(v) => updateFilter("battery", v as ">90" | "<90")}
         />
+        <div className="flex gap-3 items-center mt-5">
+          <label htmlFor="favorites">Ver solo favoritos</label>
+          <input
+            id="favorites"
+            type="checkbox"
+            className="toggle toggle-sm"
+            onChange={(e) => updateFilter("favorites", e.target.checked)}
+            checked={filters.favorites || false}
+          />
+        </div>
       </div>
     </div>
   );

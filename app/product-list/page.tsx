@@ -1,5 +1,5 @@
 "use client";
-import { fetchGroupedProducts } from "@/lib/utils";
+import { fetchGroupedProducts, isFavorite } from "@/lib/utils";
 import { StripeProduct } from "@/utils/interface";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -9,13 +9,15 @@ import BackToTop from "../components/BackToTop";
 import ProductFilter, { Filters } from "../components/ProductFilter";
 import { useSearchStore } from "@/context/SearchStore";
 import ActiveSearchTag from "../components/ActiveSearchTag";
+import { useSearchParams } from "next/navigation";
 
 export default function Page() {
   const [products, setProducts] = useState<StripeProduct[]>([]);
   const [fullView, setFullView] = useState<boolean>(false);
   const [filters, setFilters] = useState<Filters>({});
   const { query, triggerRedirect, setTriggerRedirect } = useSearchStore();
-
+  const searchParams = useSearchParams();
+  const showFavorites = searchParams.get("favorites") === "true";
   useEffect(() => {
     if (triggerRedirect) {
       setTriggerRedirect(false);
@@ -25,7 +27,10 @@ export default function Page() {
 
   useEffect(() => {
     fetchGroupedProducts().then(setProducts);
-  }, []);
+    if (showFavorites) {
+      setFilters({ favorites: showFavorites });
+    }
+  }, [showFavorites]);
 
   const filtered = products.filter((product) => {
     const matchColor = filters.color ? product.color === filters.color : true;
@@ -38,12 +43,14 @@ export default function Page() {
     const matchQuery = product.model
       .toLowerCase()
       .includes(query.toLowerCase());
-    return matchColor && matchModel && matchBattery && matchQuery;
+    const matchFavorites = filters.favorites ? isFavorite(product._id) : true;
+    return (
+      matchColor && matchModel && matchBattery && matchQuery && matchFavorites
+    );
   });
 
   const handleToggle = () => {
     setFullView((prev) => !prev);
-    console.log(fullView);
   };
 
   // Agrupar por condición
@@ -63,7 +70,10 @@ export default function Page() {
       <h1 className="text-2xl font-bold">Catálogo de iPhones</h1>
       <section className="grid grid-cols-6 gap-10">
         <aside className="col-span-6 lg:col-span-1">
-          <ProductFilter onFilterChange={setFilters} />
+          <ProductFilter
+            onFilterChange={setFilters}
+            showFavorites={showFavorites}
+          />
         </aside>
         <aside className="col-span-6 lg:col-span-5">
           <div className="flex flex-col sm:flex-row w-full gap-2 items-center">

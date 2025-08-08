@@ -4,6 +4,7 @@ export const HeroImages = [
   "/Hero/hero3.webp",
   "/Hero/hero4.webp",
 ];
+export const FAVORITES_KEY = "favoritos";
 
 export const MenuItems = [
   { title: "Home", href: "/" },

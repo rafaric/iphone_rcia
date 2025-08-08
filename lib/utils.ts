@@ -1,3 +1,4 @@
+import { FAVORITES_KEY } from "@/constants/constants";
 import { client } from "@/sanity/lib/client";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -57,3 +58,19 @@ export async function incrementViews(productId: string) {
     console.error("Error incrementing views:", error);
   }
 }
+
+export const getFavorites = (): string[] => {
+  if (typeof window === "undefined") {
+    return [];
+  }
+  return JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
+};
+
+export const toggleFavorite = (id: string): void => {
+  const current = getFavorites();
+  const updated = current.includes(id)
+    ? current.filter((item) => item !== id)
+    : [...current, id];
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
+};
+export const isFavorite = (id: string): boolean => getFavorites().includes(id);
