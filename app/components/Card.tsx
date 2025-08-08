@@ -32,7 +32,7 @@ const ProductCard = ({ item }: ProductCardProps) => {
 
   return (
     <Card
-      className="rounded bg-white gap-4 p-2 2xl:p-3 flex flex-col h-fit hover:shadow-xl hover:transition-all hover:duration-300 duration-200 hover:cursor-pointer group relative"
+      className="rounded bg-white gap-4 p-2 2xl:p-3 flex flex-col h-full hover:shadow-xl hover:transition-all hover:duration-300 duration-200 hover:cursor-pointer group relative"
       onClick={() => router.push(`/products/${item.slug.current}`)}
     >
       <Badge className="absolute rounded-full size-8 top-4 left-4 bg-red-700">
@@ -48,7 +48,7 @@ const ProductCard = ({ item }: ProductCardProps) => {
           height={20}
         />
       </div>
-      <h3 className="text-sm text-[#3e3e3e]">{item?.name}</h3>
+      <h3 className="text-sm text-[#3e3e3e] flex-1">{item?.name}</h3>
       <div className="flex justify-between items-center">
         <h4 className="text-sm font-bold text-[#3e3e3e]">U$S {item?.price}</h4>
         <button
