@@ -1,9 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { useCartStore } from "@/context/CartStore";
-import { isFavorite, toggleFavorite } from "@/lib/utils";
 import { StripeProduct } from "@/utils/interface";
-import { Heart } from "lucide-react";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -29,10 +28,6 @@ const ProductCard = ({ item }: ProductCardProps) => {
     toast.success("Producto añadido al carrito 🛒");
     //router.push("/cart");
     //agregar modal o aviso con posibilidad de enviar al carrito.
-  };
-  const handleToggle = (e: React.MouseEvent<HTMLInputElement>) => {
-    e.stopPropagation();
-    toggleFavorite(item._id);
   };
 
   return (
